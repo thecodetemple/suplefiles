@@ -104,4 +104,4 @@ Thumbs.db
 #!wp-content/mu-plugins/example-mu-plugin/
 !wp-content/plugins/conekta-woocommerce-v.2.0.12/
 !wp-content/plugins/woocommerce-signifyd/
-#!wp-content/themes/example-theme/
+!wp-content/themes/flatsome-child/
