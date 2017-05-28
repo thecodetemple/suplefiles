@@ -43,6 +43,7 @@ function add_cancel_order_actions_button_css() {
 
 
 //SEND CAPTURE REQUEST TO CONKETA ONCE THE BUTTON IS PRESSED
+//We are adding this new comments to test.
 
 add_action( 'wp_ajax_my_ajax', 'my_ajax' );
 
