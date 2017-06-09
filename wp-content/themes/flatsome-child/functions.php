@@ -69,6 +69,6 @@ function my_ajax() {
 
 add_action( 'woocommerce_before_checkout_form', 'skyverge_add_checkout_notice', 11 );
 function skyverge_add_checkout_notice() {
-	    var_dump(WC()->checkout->checkout_fields);
+	//	    var_dump(WC()->checkout->checkout_fields);
 
 }
