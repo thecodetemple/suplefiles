@@ -187,9 +187,9 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 
 						$paymentmethodname = get_post_meta( $post_id, '_payment_method', true );
 
-						if ( ($paymentmethodname != 'conektacard') || ($paymentmethodname != 'paypal') ) { 
+						if ( ($paymentmethodname !== 'conektacard' && $paymentmethodname !== 'paypal') ) { 
 
-						    exit; // Exit if payment isn't paypal
+						    exit; // Exit if payment isn't conekta
 
 						}
 
@@ -201,6 +201,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 
 
 						$request = new Signifyd_Case_Request();
+
 
 
 
@@ -218,13 +219,15 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 
 							'paymentGateway'    => 'conektacard',
 
+							'paymentMethod'		=> 'PAYMENT_CARD',
+
 							'currency'          => 'MXN',
 
 							'orderChannel'      => 'WEB',
 
 							'receivedBy'        => '',
 
-							'totalPrice'        => get_post_meta( $post_id, '_order_total', true)
+							'totalPrice'        => get_post_meta( $post_id, '_order_total', true),
 
 						));
 						
@@ -239,6 +242,8 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 							'createdAt'         => $time->format(DateTime::ATOM),
 
                             'paymentGateway'    => 'paypal',
+
+							'paymentMethod'		=> 'PAYPAL_ACCOUNT',
 
 							'currency'          => 'MXN',
 
@@ -343,9 +348,13 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 
 						//ADD CARD INFORMATION
 						if( $paymentmethodname == 'conektacard' ) {
+
 						$request->addCard(array(
 
-						'cardHolderName' => get_post_meta( $post_id, '_billing_first_name', true ).' '.get_post_meta( $post_id, '_billing_last_name', true ),
+						//'cardHolderName' => get_post_meta( $post_id, '_billing_first_name', true ).' '.get_post_meta( $post_id, '_billing_last_name', true ),
+							'cardHolderName' => $_POST['conekta-card-name'],
+
+							'expiryMonth' => $_POST['card_expiration_month'],
 
 								'billingAddress' => array(
 
@@ -361,25 +370,29 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 
 									'countryCode' => get_post_meta( $post_id, '_billing_country', true ),
 
-									
-
-
 
 								))
 
 							);
 						}elseif($paymentmethodname == 'paypal'){
-                                                $request->addCard(array(
 
-					        'cardHolderName' => get_post_meta( $post_id, '_billing_first_name', true ).' '.get_post_meta( $post_id, '_billing_last_name', true ),
+                         $request->addCard(array(
+
+					    'cardHolderName' => get_post_meta( $post_id, '_billing_first_name', true ).' '.get_post_meta( $post_id, '_billing_last_name', true ),
+
+
 
 						'billingAddress' => array(
 							'streetAddress' => get_post_meta( $post_id, '_billing_address_1', true ),
 							'unit' => get_post_meta( $post_id, '_billing_address_2', true ),
 							'city' => get_post_meta( $post_id, '_billing_city', true ),
-							'provinceCode' => get_post_meta( $post_id, '_billing_state', true ),																'postalCode' => get_post_meta( $post_id, '_billing_postcode', true ),																'countryCode' => get_post_meta( $post_id, '_billing_country', true ),
+							'provinceCode' => get_post_meta( $post_id, '_billing_state', true ),
+							'postalCode' => get_post_meta( $post_id, '_billing_postcode', true ),
+							'countryCode' => get_post_meta( $post_id, '_billing_country', true ),
 
-						))																								);}
+						))
+                         );
+                     }
 
 						
 						$request->addUserAccount(array(

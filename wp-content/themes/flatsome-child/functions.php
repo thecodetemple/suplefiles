@@ -57,8 +57,18 @@ function my_ajax() {
 			      echo $errorDetail->getMessage();
 			        }
 	}	
+
 	$order->capture();
 	 wp_redirect( $_SERVER['HTTP_REFERER'] );
 	    exit();
+
+}
+
+
+
+
+add_action( 'woocommerce_before_checkout_form', 'skyverge_add_checkout_notice', 11 );
+function skyverge_add_checkout_notice() {
+	    var_dump(WC()->checkout->checkout_fields);
 
 }

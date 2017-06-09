@@ -9,19 +9,19 @@
 <span style="width: 100%; float: left; color: red;" class='payment-errors required'></span>
 <div class="form-row form-row-wide">
   <label for="conekta-card-number"><?php echo $this->lang_options["card_number"]; ?><span class="required">*</span></label>
-  <input id="conekta-card-number" class="input-text" type="text" data-conekta="card[number]" />
+  <input name="conekta-card-number" id="conekta-card-number" class="input-text" type="text" data-conekta="card[number]" />
 </div>
 
 <div class="form-row form-row-wide">
   <label for="conekta-card-name"> <?php echo $this->lang_options["card_name"]; ?><span class="required">*</span></label>
-  <input id="conekta-card-name" type="text" data-conekta="card[name]" class="input-text" />
+  <input name="conekta-card-name" id="conekta-card-name" type="text" data-conekta="card[name]" class="input-text" />
 </div>
 
 <div class="clear"></div>
 
 <p class="form-row form-row-first">
     <label for="card_expiration"><?php echo $this->lang_options["month_options"] ?> <span class="required">*</span></label>
-    <select id="card_expiration" data-conekta="card[exp_month]" class="month" autocomplete="off">
+    <select name="card_expiration_month" id="card_expiration" data-conekta="card[exp_month]" class="month" autocomplete="off">
              <option selected="selected" value=""><?php echo $this->lang_options["month"] ?></option>
              <?php foreach($this->lang_options["card_expiration"] as $month => $description): ?>
               <option value="<?php echo $month; ?>"><?php echo $description; ?></option>
@@ -50,7 +50,7 @@
 
 <p class="form-row form-row-first">
     <label for="conekta-card-cvc">CVC <span class="required">*</span></label>
-    <input id="conekta-card-cvc" class="input-text" type="text" maxlength="4" data-conekta="card[cvc]" value=""  style="border-radius:6px"/>
+    <input name="cvc" id="conekta-card-cvc" class="input-text" type="text" maxlength="4" data-conekta="card[cvc]" value=""  style="border-radius:6px"/>
 </p>
 
 <?php if ($this->enablemeses): ?>
